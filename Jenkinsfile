@@ -46,7 +46,37 @@ pipeline {
                       sh "docker build -t casestudy.jfrog.io/my-docker-repo/lathika/spring-petclinic:latest . " 
 }                                                                                                               
            }                                                                                                    
-    }  
+    } 
+               stage ('Push image to Artifactory') {                                                           
+                                                                                                                
+             agent {                                                                                            
+                docker {                                                                                        
+                  image 'openjdk:11.0.7'                                                                        
+                 }                                                                                              
+                }                                                                                               
+            steps {                                                                                             
+                rtDockerPush(                                                                                   
+                    serverId: "art-1",                                                                          
+                    image: "casestudy.jfrog.io/my-docker-repo/lathika/spring-petclinic:latest",                 
+                    targetRepo: 'my-docker-repo',                                                               
+                    properties: 'project-name=spring-petclinic;status=stable'                                   
+                )                                                                                               
+            }                                                                                                   
+        }                                                                                                       
+                                                                                                                
+        stage ('Publish build info') {                                                                          
+                                                                                                                
+             agent {                                                                                            
+                docker {                                                                                        
+                  image 'openjdk:11.0.7'                                                                        
+                 }                                                                                              
+                }                                                                                               
+            steps {                                                                                             
+                rtPublishBuildInfo (                                                                            
+                    serverId: "art-1"                                                                           
+                )                                                                                               
+            }                                                                                                   
+        }  
 
 }
 }
