@@ -12,7 +12,7 @@ Tools used are :
 docker run --rm --detach   --net host -u root -p 8080:8080 -v jenkins-data:/var/jenkins_home  -v $(which docker):/usr/local/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v "$HOME":/home  jenkinsci/blueocean
 4) Run a docker inside the above docker image so that we can call the docker build commands inside the jenkins container 
 5) Configure artifactory plugin in jenkins with details 
-![Artifcatory config jenkins](../src/artifactoryconfig.png)
+![Artifcatory config jenkins](src/artifactoryconfig.png)
 The above image will run on port 8080 so the application should use another port , in my case I did use 8081
 
 6) Add various stages for Jenkins file and include docker file as well 
@@ -27,6 +27,7 @@ Jenkins file consist of stages :
 4) Docker build using teh docker file 
 5) Docker push the image to artifactory 
 6) Docker publish the image 
-![Artifcatory image](../src/imageDocker.png)
-![Build info](../src/buildinfo.png)
+```
+![Artifcatory image](src/imageDocker.png)
+![Build info](src/buildinfo.png)
 
