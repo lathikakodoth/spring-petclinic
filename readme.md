@@ -30,4 +30,4 @@ Jenkins file consist of stages :
 ```
 ![Artifcatory image](src/imageDocker.png)
 ![Build info](src/buildinfo.png)
-
+![Jenkins Pipeline](src/jenkinspipeline.png)
